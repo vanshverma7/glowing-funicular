@@ -4,7 +4,27 @@
   <title>My First GitHub Page</title>
 </head>
 <body>
-  <h1> Hopefully this testing goes well</h1>
+  <h1>Hopefully this testing goes well</h1>
   <p>Learning Git</p>
+
+  <!-- Button to call Azure Function -->
+  <button onclick="getMessage()">Get Message from Function</button>
+  <p id="output">Message will appear here</p>
+
+  <script>
+    // Your Azure Function URL
+    const FUNC_URL = "https://mydemofunction--bzezcke3eahjh3ce.canadacentral-01.azurewebsites.net/api/demotrigger?code=08M9HzIv7EaxJWQ76KHSgYzRbZ9ZmlMdh9VZ-WMZrWyKAzFubcsfHg==";
+
+    async function getMessage() {
+      try {
+        const response = await fetch(FUNC_URL);
+        const data = await response.json(); // assumes your function returns JSON
+        document.getElementById("output").innerText = data.message;
+      } catch (err) {
+        console.error(err);
+        document.getElementById("output").innerText = "Error fetching data";
+      }
+    }
+  </script>
 </body>
 </html>
